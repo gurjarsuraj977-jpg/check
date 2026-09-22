@@ -2,7 +2,7 @@ services:
   - type: web
     name: private-security-lab
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && alembic upgrade head
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
@@ -13,7 +13,15 @@ services:
         sync: false
       - key: FINGERPRINT_KEY
         sync: false
+      - key: BOOTSTRAP_TOKEN
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
       - key: ENVIRONMENT
         value: production
+      - key: LOGIN_WINDOW_SECONDS
+        value: "900"
+      - key: LOGIN_MAX_FAILURES
+        value: "8"
 databases:
   - name: private-security-lab-db

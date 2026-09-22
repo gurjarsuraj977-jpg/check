@@ -6,3 +6,7 @@ pydantic-settings
 cryptography
 pytest
 httpx
+
+
+pytest-asyncio
+alembic
